@@ -1,0 +1,43 @@
+{{extend "layout.html"}}
+    <style>
+        body{
+            width: 800px;
+        }
+        img{
+            float:right;
+            margin: 40px 0 0 0;
+        }
+        #description{
+            width:500px;
+        }
+        h3{
+            font-family: "Berlin Sans FB Demi";
+        }
+    </style>
+            <h3>Current Forsales</h3>
+            {{=A("View all available items",_href=URL("available"))}}
+            &nbsp;&nbsp;&nbsp;
+            {{=A("Add an item",_href=URL("add"))}}
+            &nbsp;&nbsp;&nbsp;
+            {{=A("Manage all items",_href=URL("manage"))}}
+        <ul>
+            {{for forsale in forsales:}}
+                <div>
+                    {{if forsale.image:}}
+                        <img height="170px" src="{{=URL('download',args=forsale.image)}}">
+                    {{pass}}
+                    <h3>{{=forsale.title}}</h3>
+                    <p id="description">{{=forsale.description}}</p>
+                        <li>Seller name: {{=forsale.seller_name}}</li>
+                        <li>Contact info: {{=forsale.phone_number}},  {{=forsale.email}}</li>
+                        <li>Date posted: {{=forsale.date_posted}}</li>
+                        <li>Category: {{=forsale.category}}</li>
+                        <li>Price: {{=forsale.price}}</li>
+                    {{if forsale.is_available:}}
+                        <li>Status: available</li>
+                    {{else:}}
+                        <li>Status: sold</li>
+                    {{pass}}
+                </div>
+            {{pass}}
+        </ul>

@@ -1,0 +1,32 @@
+{{extend "layout.html"}}
+    <style>
+        body{
+            width: 800px;
+        }
+        img{
+            float:right;
+            margin: 40px 0 0 0;
+        }
+        #description{
+            width:500px;
+        }
+    </style>
+            <h3>Available Forsales</h3>
+        <ul>
+            {{for forsale in forsales:}}
+                <div>
+                    {{if forsale.is_available:}}
+                        {{if forsale.image:}}
+                            <img height="170px" src="{{=URL('download',args=forsale.image)}}">
+                        {{pass}}
+                        <h3>{{=forsale.title}}</h3>
+                        <p id="description">{{=forsale.description}}</p>
+                        <li>Seller name: {{=forsale.seller_name}}</li>
+                        <li>Contact info: {{=forsale.phone_number}},  {{=forsale.email}}</li>
+                        <li>Date posted: {{=forsale.date_posted}}</li>
+                        <li>Category: {{=forsale.category}}</li>
+                        <li>Price: {{=forsale.price}}</li>
+                    {{pass}}
+                </div>
+            {{pass}}
+        </ul>

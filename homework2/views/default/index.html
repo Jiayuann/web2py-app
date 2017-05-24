@@ -1,0 +1,54 @@
+{{left_sidebar_enabled,right_sidebar_enabled=False,('message' in globals())}}
+{{extend 'layout.html'}}
+
+
+<head>
+    <title>Post Page</title>
+    <mata charset = "utf-8"></mata>
+     <link href="{{=URL('static','css/index_style.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    <div class ="login">
+        {{if auth.user_id:}}
+            <a href="{{=URL('default','edit')}}"><b>+ New Post</b></a>
+        {{else:}}
+            <a href="{{=URL('default','user',args=['login'])}}"><b>Login in</b></a>
+        {{pass}}
+    </div>
+    <div class ="body_content">
+    {{for post in posts:}}
+    <div class="content">
+        <div class="author_name">
+            {{=db.auth_user[post.user_id].first_name}},{{=db.auth_user[post.user_id].last_name}}
+        </div>
+
+        <div class="post_title">
+            Title: {{=post.post_title}}
+            {{if auth.user_id == post.user_id:}}
+                &amp; <a href="{{=URL('default','edit',args=[post.id])}}">Edit Post</a>
+            {{pass}}
+        </div>
+        <div class="post_content">
+            {{=post.post_content}}
+        </div>
+
+        <div class="post_image">
+            {{if post.post_image:}}
+                <img src="{{=URL('download',args=post.post_image)}}">
+            {{pass}}
+        </div>
+        <br>
+        <div class="post_date">
+                    <br>
+                    {{=post.created_on}}&nbsp;
+                    {{if post.created_on != post.updated_on:}}
+                        Updated on: {{=post.updated_on}}
+                    {{pass}}
+        </div>
+    </div>
+    <br>
+    {{pass}}
+    </div>
+
+</body>
